@@ -1,0 +1,2568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nancy Rojas - Data Analytics Portfolio</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons (Fallback system SVG icons are embedded, but using standard library simplifies) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Theme Variables */
+    :root {
+      /* Blush Harmony Theme (Default Nancy/Bellabeat inspired) */
+      --primary: #FE749C;
+      --primary-hover: #e05e83;
+      --primary-light: #fff0f3;
+      --secondary: #7c5dfa;
+      --bg: #f9fbfc;
+      --surface: #ffffff;
+      --surface-border: #f1f4f8;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --sidebar-width: 260px;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --font-display: 'Raleway', -apple-system, sans-serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --shadow: 0 4px 20px -2px rgba(16, 24, 40, 0.05), 0 2px 8px -1px rgba(16, 24, 40, 0.03);
+      --shadow-lg: 0 12px 30px -4px rgba(16, 24, 40, 0.08), 0 4px 12px -2px rgba(16, 24, 40, 0.05);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Green Slate Theme */
+    [data-theme="emerald"] {
+      --primary: #10b981;
+      --primary-hover: #059669;
+      --primary-light: #ecfdf5;
+      --secondary: #3b82f6;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+    }
+
+    /* Dark Mode Indigo Theme */
+    [data-theme="dark"] {
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-light: rgba(99, 102, 241, 0.15);
+      --secondary: #ec4899;
+      --bg: #0b0f19;
+      --surface: #151e30;
+      --surface-border: #1e293b;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-light: #64748b;
+      --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 12px 30px -4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Base Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s var(--transition), color 0.3s var(--transition);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: var(--radius);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-light);
+    }
+
+    /* Typography helpers */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    /* Utility Classes */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-primary {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .badge-secondary {
+      background-color: var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: var(--surface);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg);
+      border-color: var(--text-light);
+    }
+
+    .card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(var(--surface-color, 255, 255, 255), 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: var(--font-display);
+      color: var(--text);
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .theme-select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--text);
+      cursor: pointer;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .theme-select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Mobile Nav Toggle */
+    .mobile-nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-text {
+      max-width: 650px;
+    }
+
+    .hero-pretitle {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    .hero-description {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-card {
+      width: 320px;
+      height: 400px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--primary-light), var(--surface));
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 3rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .profile-info {
+      text-align: center;
+    }
+
+    .profile-name {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .profile-role {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .profile-location {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      text-align: center;
+    }
+
+    .profile-stat-val {
+      font-weight: 700;
+      color: var(--text);
+      font-size: 1.1rem;
+    }
+
+    .profile-stat-lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Section Global Style */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 48px;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      margin-bottom: 12px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Projects & Upload Section */
+    .projects-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .filter-tab {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-tab.active, .filter-tab:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .project-category {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+    }
+
+    .project-title {
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tech-tag {
+      font-size: 0.75rem;
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+    }
+
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 16px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .project-link:hover {
+      color: var(--primary-hover);
+    }
+
+    /* Bellabeat Deep Dive Case Study Section */
+    .bellabeat-deep-dive {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      margin-top: 48px;
+    }
+
+    .bb-nav {
+      display: flex;
+      background-color: var(--surface-border);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .bb-nav-btn {
+      flex: 1;
+      min-width: 120px;
+      padding: 16px 8px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .bb-nav-btn:hover {
+      color: var(--primary);
+      background-color: rgba(var(--primary-color-rgb, 254, 116, 156), 0.05);
+    }
+
+    .bb-nav-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background-color: var(--surface);
+    }
+
+    .bb-content-pane {
+      padding: 32px;
+      display: none;
+    }
+
+    .bb-content-pane.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bb-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .bb-pane-title {
+      font-size: 1.75rem;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .bb-pane-subtitle {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .bb-text {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .bb-list {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .bb-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+
+    .bb-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .bb-visual {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Custom Interactive Visuals for Bellabeat */
+    .steps-chart-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bar-chart-row {
+      display: grid;
+      grid-template-columns: 70px 1fr 50px;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chart-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .chart-bar-wrapper {
+      background-color: var(--border);
+      height: 16px;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .chart-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 9999px;
+      width: 0; /* Dynamic animate */
+      transition: width 1s ease-out;
+    }
+
+    .chart-val {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      text-align: right;
+    }
+
+    .sleep-scatter {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sleep-stat-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .mini-stat {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+
+    .mini-stat-val {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .mini-stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .sleep-progress-bar {
+      height: 8px;
+      background-color: var(--border);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .sleep-progress-fill {
+      height: 100%;
+      background-color: var(--secondary);
+    }
+
+    .bmi-compliance {
+      text-align: center;
+      padding: 16px;
+    }
+
+    .pie-sim {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary) 0% 37.1%, var(--border) 37.1% 100%);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+
+    .pie-inner {
+      width: 90px;
+      height: 90px;
+      background-color: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pie-pct {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .pie-lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* Resume / Experience Section */
+    .resume-container {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 40px;
+    }
+
+    .resume-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .resume-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .resume-title {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .skill-name {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .skill-level {
+      display: flex;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--border);
+    }
+
+    .dot.filled {
+      background-color: var(--primary);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      background-color: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 48px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: var(--surface);
+      border: 3px solid var(--primary);
+      z-index: 2;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .timeline-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .timeline-org {
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .timeline-date {
+      font-size: 0.85rem;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-weight: 600;
+    }
+
+    .timeline-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-bullets {
+      margin-top: 12px;
+      padding-left: 16px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .timeline-bullets li {
+      margin-bottom: 6px;
+    }
+
+    /* Accomplishments Section */
+    .accomplishments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .acc-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .acc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .acc-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius);
+      background-color: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .acc-title {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .acc-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Interactive Project Uploader Tool (Form Wizard Modal & Dynamic Creation) */
+    .add-project-box {
+      background: linear-gradient(135deg, var(--surface), var(--primary-light));
+      border: 1px dashed var(--primary);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(24px);
+      transition: var(--transition);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-size: 1.35rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-btn:hover {
+      color: var(--text);
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      background-color: var(--surface);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--text);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 40px;
+    }
+
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background-color: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-text-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    .contact-text-val {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Simulated Messages Inbox for Nancy */
+    .simulated-inbox {
+      margin-top: 32px;
+      background-color: var(--surface-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .inbox-title {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .messages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .msg-item {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      font-size: 0.85rem;
+      position: relative;
+    }
+
+    .msg-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .msg-body {
+      color: var(--text-muted);
+    }
+
+    /* Presentation Slide Deck Modal Viewer (To visualize Nancy's 14 slides) */
+    .slides-preview-container {
+      background-color: var(--surface-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 32px;
+      border: 1px solid var(--border);
+    }
+
+    .slide-deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .slide-deck-title {
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-nav-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      transition: var(--transition);
+    }
+
+    .slide-nav-btn:hover {
+      background-color: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .slide-counter {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Custom high fidelity slide renderer in CSS */
+    .slide-canvas {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 5%;
+      box-sizing: border-box;
+      transition: var(--transition);
+      font-family: 'Raleway', sans-serif;
+    }
+
+    /* Custom styles for slides content rendering based on active slide index */
+    .slide-content-layout {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Footer styling */
+    footer {
+      background-color: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      margin-top: 80px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 24px;
+      list-style: none;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+      }
+      .hero-text {
+        max-width: 100%;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .bb-grid {
+        grid-template-columns: 1fr;
+      }
+      .resume-container {
+        grid-template-columns: 1fr;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .nav-links {
+        display: none; /* Can build custom mini-drawer later if needed */
+      }
+      .projects-filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="logo">
+        <div class="logo-mark">NR</div>
+        <span>Nancy Rojas</span>
+      </a>
+      
+      <ul class="nav-links">
+        <li><a href="#about" class="nav-link active">About</a></li>
+        <li><a href="#case-studies" class="nav-link">Case Studies</a></li>
+        <li><a href="#resume" class="nav-link">Interactive Resume</a></li>
+        <li><a href="#accomplishments" class="nav-link">Accomplishments</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Palette theme picker -->
+        <select class="theme-select" id="themeSelector" onchange="changeTheme(this.value)">
+          <option value="default">🌸 Blush Harmony (Bellabeat)</option>
+          <option value="emerald">🌿 Emerald Slate</option>
+          <option value="dark">🌌 Midnight Indigo</option>
+        </select>
+        <a href="#contact" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Hire Me</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="about" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="hero-pretitle">Hello World!</span>
+        <h1 class="hero-title">Nancy Rojas</h1>
+        <p class="hero-subtitle">Data Analytics Apprentice @ Google</p>
+        <p class="hero-description">
+          I bridge the gap between raw, complex datasets and strategic business narratives. 
+          Specializing in user-behavior analytics, complex metric pipelining, and performance engineering, 
+          I deliver clear dashboards and action-driven insights that help stakeholders unlock massive value.
+        </p>
+        <div class="hero-actions">
+          <a href="#case-studies" class="btn btn-primary">
+            <i data-lucide="eye" style="width:18px;height:18px;"></i>
+            Explore Projects
+          </a>
+          <a href="#resume" class="btn btn-secondary">
+            <i data-lucide="file-text" style="width:18px;height:18px;"></i>
+            Interactive Resume
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="profile-card">
+          <div class="profile-avatar">NR</div>
+          <div class="profile-info">
+            <h3 class="profile-name">Nancy Rojas</h3>
+            <p class="profile-role">Data Analytics & Engineering</p>
+            <div class="profile-location">
+              <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--primary);"></i>
+              Chicago, IL (Google Offices)
+            </div>
+          </div>
+          <div class="profile-stats">
+            <div>
+              <div class="profile-stat-val">10K+</div>
+              <div class="profile-stat-lbl">Rows Cleaned</div>
+            </div>
+            <div>
+              <div class="profile-stat-val">14+</div>
+              <div class="profile-stat-lbl">Slides Shared</div>
+            </div>
+            <div>
+              <div class="profile-stat-val">100%</div>
+              <div class="profile-stat-lbl">SLA Target</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies & Presentation Section -->
+  <section id="case-studies" style="background-color: var(--bg);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">Featured Work</span>
+        <h2 class="section-title" style="margin-top: 12px;">Data Analytics Case Studies</h2>
+        <p class="section-desc">Deep-dives into real analytical products, showcasing the complete process from ingestion to tactical recommendations.</p>
+      </div>
+
+      <!-- Live Filter Bar for Projects -->
+      <div class="projects-filter-bar">
+        <div class="filter-tabs">
+          <button class="filter-tab active" onclick="filterProjects('all')">All Work</button>
+          <button class="filter-tab" onclick="filterProjects('capstone')">Capstone Cases</button>
+          <button class="filter-tab" onclick="filterProjects('dashboards')">Dashboards & pipelines</button>
+        </div>
+        <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openAddProjectModal()">
+          <i data-lucide="plus" style="width:16px;height:16px;color:var(--primary);"></i>
+          Add New Project
+        </button>
+      </div>
+
+      <!-- Main Project Grid -->
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Project 1: Bellabeat Capstone -->
+        <div class="card project-card" data-category="capstone">
+          <div class="project-header">
+            <span class="project-category">Case Study • Women's Wellness</span>
+            <span class="badge badge-primary">Google Certified</span>
+          </div>
+          <h3 class="project-title">Bellabeat Capstone Case Study</h3>
+          <p class="project-desc">
+            Analyzing 30+ smart device users' activity, sleep, and physical trends. 
+            Identified massive strategic drop-offs in manual BMI tracking and mapped out 
+            behavioral "Sunday reset" patterns to guide localized user notification strategies.
+          </p>
+          <div class="project-meta">
+            <span class="tech-tag">Python/Pandas</span>
+            <span class="tech-tag">Google Colab</span>
+            <span class="tech-tag">Data Cleaning</span>
+            <span class="tech-tag">Google Slides</span>
+          </div>
+          <div class="project-footer">
+            <a href="#bellabeat-deepdive" class="project-link">
+              Read Deep-Dive
+              <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+            </a>
+            <span style="font-size:0.8rem; color:var(--text-light);">Active Interactive Content Below</span>
+          </div>
+        </div>
+
+        <!-- Project 2: PLX dashboard & UMM -->
+        <div class="card project-card" data-category="dashboards">
+          <div class="project-header">
+            <span class="project-category">Data Pipelines & Dashboards</span>
+            <span class="badge badge-secondary">Google Internal</span>
+          </div>
+          <h3 class="project-title">UMM Executive Summary Dashboard</h3>
+          <p class="project-desc">
+            Migrated complex temperature metrics to the Westworld Daily pipeline. 
+            Developed highly-optimized PLX scorecards monitoring Data Health Indexes (DHI), 
+            Mean Time To Repair (MTTR), and SLAs, delivering immediate operational visibility.
+          </p>
+          <div class="project-meta">
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">PLX Dashboards</span>
+            <span class="tech-tag">F1 Profiles</span>
+            <span class="tech-tag">Partitioning</span>
+          </div>
+          <div class="project-footer">
+            <span class="project-link" style="color:var(--text-muted); cursor:not-allowed;">
+              Internal Access Only
+            </span>
+            <span style="font-size:0.8rem; color:var(--text-light);">DHI & MTTR Focus</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bellabeat Deep Dive Case Study Details -->
+      <div id="bellabeat-deepdive" class="bellabeat-deep-dive">
+        <div style="padding: 24px; border-bottom: 1px solid var(--border);">
+          <h3 style="font-size: 1.5rem; display: flex; align-items: center; gap: 10px;">
+            <i data-lucide="sparkles" style="color:var(--primary);"></i>
+            Interactive Case Study: Bellabeat Smart Device Trends
+          </h3>
+          <p style="color:var(--text-muted); font-size:0.95rem; margin-top:4px;">
+            An in-depth presentation of Google Analytics apprenticeship results, complete with live data simulations.
+          </p>
+        </div>
+
+        <!-- Case Study Nav (6 Phases of Data Analysis) -->
+        <div class="bb-nav">
+          <button class="bb-nav-btn active" onclick="switchBBTab('ask')">Phase 1: Ask</button>
+          <button class="bb-nav-btn" onclick="switchBBTab('prepare')">Phase 2: Prepare</button>
+          <button class="bb-nav-btn" onclick="switchBBTab('process')">Phase 3: Process</button>
+          <button class="bb-nav-btn" onclick="switchBBTab('analyze')">Phase 4 & 5: Analyze & Share</button>
+          <button class="bb-nav-btn" onclick="switchBBTab('act')">Phase 6: Act</button>
+        </div>
+
+        <!-- BB Tabs Content -->
+        <!-- ASK -->
+        <div id="bb-ask" class="bb-content-pane active">
+          <div class="bb-grid">
+            <div>
+              <span class="bb-pane-subtitle">Core Objectives & Stakeholders</span>
+              <h4 class="bb-pane-title">Defining the Business Challenge</h4>
+              <p class="bb-text">
+                Bellabeat is a high-tech company that manufactures health-focused smart products for women. 
+                By analyzing smart device fitness data, we aimed to uncover how consumers utilize non-Bellabeat smart devices 
+                to guide strategic marketing pathways for their product line.
+              </p>
+              <ul class="bb-list">
+                <li><strong>Primary Goal:</strong> Understand weekly activity and sleep habits of active users.</li>
+                <li><strong>Strategic Aim:</strong> Map non-intrusive opportunities to prompt behavioral changes.</li>
+                <li><strong>Stakeholders:</strong> Urška Sršen (Co-founder & Chief Creative Officer), Marketing Analytics team.</li>
+              </ul>
+            </div>
+            <div class="bb-visual" style="text-align: center;">
+              <i data-lucide="help-circle" style="width: 64px; height: 64px; color: var(--primary); margin: 0 auto 16px;"></i>
+              <h5 style="margin-bottom: 8px; font-weight:700;">Key Question Raised</h5>
+              <p style="font-size: 0.9rem; color: var(--text-muted);">
+                "How do consumer habits on generic smart devices translate to potential feature updates or campaigns for Bellabeat products?"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PREPARE -->
+        <div id="bb-prepare" class="bb-content-pane">
+          <div class="bb-grid">
+            <div>
+              <span class="bb-pane-subtitle">Data Gathering & Security</span>
+              <h4 class="bb-pane-title">Data Ingestion and Integrity Check</h4>
+              <p class="bb-text">
+                We utilized public smart device tracker datasets (FitBit Fitness Tracker Data), consisting of 
+                minute-level physical activity, heart rate, and sleep monitoring records from 30+ consenting users.
+              </p>
+              <ul class="bb-list">
+                <li><strong>Data Range:</strong> Cohorts monitored across daily and hourly cycles.</li>
+                <li><strong>Validation Parameters:</strong> Checked row uniqueness, timestamp consistency, and NULL tracking indices.</li>
+                <li><strong>Limitations Identified:</strong> High levels of missing manual parameters (specifically BMI weight metrics).</li>
+              </ul>
+            </div>
+            <div class="bb-visual">
+              <h5 style="margin-bottom: 12px; font-weight: 700; text-align: center;">Monitored Wellness Parameters</h5>
+              <div class="steps-chart-container" style="gap: 12px;">
+                <div class="bar-chart-row">
+                  <span class="chart-label">Steps</span>
+                  <div class="chart-bar-wrapper"><div class="chart-bar" style="width: 100%; background: var(--primary);"></div></div>
+                  <span class="chart-val">Active</span>
+                </div>
+                <div class="bar-chart-row">
+                  <span class="chart-label">Sleep</span>
+                  <div class="chart-bar-wrapper"><div class="chart-bar" style="width: 85%; background: var(--secondary);"></div></div>
+                  <span class="chart-val">Active</span>
+                </div>
+                <div class="bar-chart-row">
+                  <span class="chart-label">Weight</span>
+                  <div class="chart-bar-wrapper"><div class="chart-bar" style="width: 37%; background: var(--text-light);"></div></div>
+                  <span class="chart-val">Sparse</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROCESS -->
+        <div id="bb-process" class="bb-content-pane">
+          <div class="bb-grid">
+            <div>
+              <span class="bb-pane-subtitle">Data Hygiene & Structuring</span>
+              <h4 class="bb-pane-title">Robust Python Data Cleaning Pipeline</h4>
+              <p class="bb-text">
+                Using Pandas inside Google Colab, raw activity and sleep datasets were merged. 
+                Dates were transformed into normalized datetime elements, column headers standardized, and outliers pruned.
+              </p>
+              <ul class="bb-list">
+                <li>Converted non-standard date strings to Pandas <code>datetime64</code> format.</li>
+                <li>Unified inconsistent ID representations across sleep and daily summaries.</li>
+                <li>Built strict logging scripts tracing row drop-offs in Google Sheets and Python environment.</li>
+              </ul>
+            </div>
+            <div class="bb-visual" style="background-color: #1e293b; color: #f8fafc; font-family: monospace; font-size: 0.8rem; border-color: #334155;">
+              <span style="color: #64748b; border-bottom: 1px solid #334155; padding-bottom: 4px; margin-bottom: 12px; display: block;"># pandas_data_cleansing.py</span>
+              <span style="color: #f472b6;">import</span> pandas <span style="color: #f472b6;">as</span> pd<br>
+              daily_activity = pd.read_csv(<span style="color: #38bdf8;">"dailyActivity_merged.csv"</span>)<br>
+              <br>
+              <span style="color: #64748b;"># Normalize Datetime Formats</span><br>
+              daily_activity[<span style="color: #38bdf8;">'ActivityDate'</span>] = pd.to_datetime(daily_activity[<span style="color: #38bdf8;">'ActivityDate'</span>])<br>
+              <br>
+              <span style="color: #64748b;"># Rename columns for unified keys</span><br>
+              daily_activity.rename(columns={<span style="color: #38bdf8;">'ActivityDate'</span>: <span style="color: #38bdf8;">'date'</span>}, inplace=<span style="color: #f472b6;">True</span>)<br>
+              print(f<span style="color: #38bdf8;">"Successfully cleaned {len(daily_activity)} rows."</span>)
+            </div>
+          </div>
+        </div>
+
+        <!-- ANALYZE & SHARE -->
+        <div id="bb-analyze" class="bb-content-pane">
+          <h4 class="bb-pane-title" style="margin-bottom: 8px;">Uncovering Behavior Patterns & User Insights</h4>
+          <p class="bb-text" style="margin-bottom: 24px;">
+            By mapping parameters side by side, three key strategic trends emerged. 
+            Toggle the insight cards below to inspect the simulated live charts.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+            <!-- Insight Card 1 -->
+            <div class="card" style="background-color: var(--bg); padding: 20px; transition: none;">
+              <h5 style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size:1.1rem;">
+                <span class="badge badge-primary">Trend 1</span>
+                Weekly Movement Peak
+              </h5>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                Users reach an physical peak on Saturdays, followed by a sharp "Sunday reset" which drags straight into Tuesday workdays.
+              </p>
+              <div class="steps-chart-container" id="stepsChartContainer">
+                <!-- Javascript will populate this with dynamic animation width -->
+                <div class="bar-chart-row">
+                  <span class="chart-label">Mon-Tue</span>
+                  <div class="chart-bar-wrapper"><div class="chart-bar" style="width: 58%; background: var(--text-light);"></div></div>
+                  <span class="chart-val">7.2K</span>
+                </div>
+                <div class="bar-chart-row">
+                  <span class="chart-label">Wed-Fri</span>
+                  <div class="chart-bar-wrapper"><div class="chart-bar" style="width: 68%; background: var(--secondary);"></div></div>
+                  <span class="chart-val">8.4K</span>
+                </div>
+                <div class="bar-chart-row">
+                  <span class="chart-label">Saturday</span>
+                  <div class="chart-bar-wrapper"><div class="chart-bar" style="width: 95%; background: var(--primary);"></div></div>
+                  <span class="chart-val">11.8K</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Insight Card 2 -->
+            <div class="card" style="background-color: var(--bg); padding: 20px; transition: none;">
+              <h5 style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size:1.1rem;">
+                <span class="badge badge-primary">Trend 2</span>
+                Sedentary vs. Sleep
+              </h5>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                12+ hours of sedentary habits severely damages sleep health, dropping total rest times below the recommended 7-hour mark.
+              </p>
+              <div class="sleep-scatter">
+                <div class="sleep-stat-card">
+                  <div class="mini-stat">
+                    <div class="mini-stat-val">&gt; 12h</div>
+                    <div class="mini-stat-lbl">Sedentary</div>
+                  </div>
+                  <div class="mini-stat">
+                    <div class="mini-stat-val" style="color:var(--secondary);">&lt; 6.2h</div>
+                    <div class="mini-stat-lbl">Avg Sleep</div>
+                  </div>
+                </div>
+                <div class="sleep-progress-bar">
+                  <div class="sleep-progress-fill" style="width: 62%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Insight Card 3 -->
+            <div class="card" style="background-color: var(--bg); padding: 20px; transition: none;">
+              <h5 style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size:1.1rem;">
+                <span class="badge badge-primary">Trend 3</span>
+                Manual Entry Friction
+              </h5>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                Unlike passive sleep/step telemetry, manual weight and BMI entry introduces severe behavioral friction, leading to user abandonment.
+              </p>
+              <div class="bmi-compliance">
+                <div class="pie-sim">
+                  <div class="pie-inner">
+                    <span class="pie-pct">37.1%</span>
+                    <span class="pie-lbl">Logged BMI</span>
+                  </div>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Only 13 of 35 initial cohort tracked BMI</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACT -->
+        <div id="bb-act" class="bb-content-pane">
+          <div class="bb-grid">
+            <div>
+              <span class="bb-pane-subtitle">Strategic Direction & Implementation</span>
+              <h4 class="bb-pane-title">Tactical Business Recommendations</h4>
+              <p class="bb-text">
+                To maximize user engagement, Bellabeat should shift marketing and product telemetry features based on these generic device trends.
+              </p>
+              <ul class="bb-list">
+                <li>
+                  <strong>Gentle Daytime Nudges:</strong> 
+                  Prompt localized notifications during long workweek sedentary stretches to help users break the sedentary state and achieve optimal nightly sleep.
+                </li>
+                <li>
+                  <strong>Passive Tracking Integrations:</strong> 
+                  Replace manual inputs with connected, automated measurements (smart scales/automatic BMI calculators) to avoid the severe manual entry drop-off.
+                </li>
+                <li>
+                  <strong>Weekend Challenge Programs:</strong> 
+                  Introduce competitive Saturday step milestones, encouraging community loops when user physical capacity naturally peaks.
+                </li>
+              </ul>
+            </div>
+            <div class="bb-visual" style="text-align: center; gap: 12px;">
+              <i data-lucide="award" style="width: 56px; height: 56px; color: var(--primary); margin: 0 auto;"></i>
+              <h5 style="font-weight: 700;">Executive Impact Summary</h5>
+              <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 320px; margin: 0 auto;">
+                Implementing passive BMI weight integrations holds potential to recover up to 60% of lost tracking engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide Deck Preview System (Nancy's 14 Slide Google Slides presentation built-in) -->
+      <div class="slides-preview-container">
+        <div class="slide-deck-header">
+          <h4 class="slide-deck-title">
+            <i data-lucide="presentation" style="color:var(--primary); width:20px; height:20px;"></i>
+            Slide Deck Companion: BellaBeat_Presentation - Nancy Rojas (14 Slides)
+          </h4>
+          <div class="slide-controls">
+            <button class="slide-nav-btn" onclick="navigateSlide(-1)">
+              <i data-lucide="chevron-left" style="width:18px;height:18px;"></i>
+            </button>
+            <span class="slide-counter" id="slideCounter">Slide 1 of 14</span>
+            <button class="slide-nav-btn" onclick="navigateSlide(1)">
+              <i data-lucide="chevron-right" style="width:18px;height:18px;"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide Canvas Render -->
+        <div class="slide-canvas" id="slideCanvas">
+          <!-- Dynamically filled via Javascript -->
+          <div class="slide-content-layout" id="slideContent">
+            <!-- Content -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Resume Section -->
+  <section id="resume">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">Career Summary</span>
+        <h2 class="section-title" style="margin-top:12px;">Interactive Resume & Competencies</h2>
+        <p class="section-desc">Highly optimized data processes, dashboards, and enterprise analysis methodologies.</p>
+      </div>
+
+      <div class="resume-container">
+        <!-- Sidebar - Skills & Capabilities -->
+        <div class="resume-sidebar">
+          <!-- Skill Set Card 1 -->
+          <div class="resume-card">
+            <h3 class="resume-title">
+              <i data-lucide="cpu" style="width:18px;height:18px;color:var(--primary);"></i>
+              Core Technical Skills
+            </h3>
+            <div class="skills-list">
+              <div class="skill-item">
+                <span class="skill-name">SQL (Optimization & F1)</span>
+                <div class="skill-level">
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Python (Pandas, Numpy)</span>
+                <div class="skill-level">
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">PLX Dashboard Scorecards</span>
+                <div class="skill-level">
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Data Quality Check & Logs</span>
+                <div class="skill-level">
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Tableau & Data Viz</span>
+                <div class="skill-level">
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill Set Card 2 -->
+          <div class="resume-card">
+            <h3 class="resume-title">
+              <i data-lucide="users" style="width:18px;height:18px;color:var(--primary);"></i>
+              Soft Skills & Strengths
+            </h3>
+            <div class="skills-list">
+              <div class="skill-item">
+                <span class="skill-name">Presentation Design</span>
+                <div class="skill-level">
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Strategic Communication</span>
+                <div class="skill-level">
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Problem Solving</span>
+                <div class="skill-level">
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                  <div class="dot filled"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Timeline - Experience -->
+        <div class="resume-card" style="padding: 32px;">
+          <h3 class="resume-title" style="font-size: 1.4rem;">
+            <i data-lucide="briefcase" style="width:22px;height:22px;color:var(--primary);"></i>
+            Professional Experience
+          </h3>
+          <div class="timeline">
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-header">
+                <div>
+                  <h4 class="timeline-title">Data Analytics Apprentice</h4>
+                  <span class="timeline-org">Engineering - Apprenticeships at Google</span>
+                </div>
+                <span class="timeline-date">Nov 2023 - Present</span>
+              </div>
+              <p class="timeline-desc">
+                Executing core data pipeline engineering, monitoring, and dashboard scorecard development within Google's strategic tech team.
+              </p>
+              <ul class="timeline-bullets">
+                <li>Migrated complex operational temperature metrics to the modern <strong>Westworld Daily</strong> pipeline.</li>
+                <li>Leveraged F1 SQL profiles and partitioning schemes to solve query bottlenecks, boosting pipeline reliability.</li>
+                <li>Designed corporate PLX scorecards monitoring Data Health Indexes (DHI), Mean Time To Repair (MTTR), and strict SLA compliance.</li>
+                <li>Conducted thorough comparative user analyses using Python, Pandas, and structured datasets in Google Colab.</li>
+              </ul>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-header">
+                <div>
+                  <h4 class="timeline-title">Google Analytics Capstone Specialist</h4>
+                  <span class="timeline-org">Google Certification Projects</span>
+                </div>
+                <span class="timeline-date">Aug 2023 - Oct 2023</span>
+              </div>
+              <p class="timeline-desc">
+                Conducted deep-dive behavioral analytics of smart wearables to drive market penetration and user retention strategies.
+              </p>
+              <ul class="timeline-bullets">
+                <li>Processed and unified Fitbit tracking rows across disparate tables using Python and Pandas.</li>
+                <li>Authored complete 14-slide executive findings outlining manual-tracking drops and weekend movement patterns.</li>
+                <li>Presented actionable product-feature maps directly helping brand strategies address user activity drop-off.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accomplishments Section -->
+  <section id="accomplishments" style="background-color: var(--bg);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">Milestones</span>
+        <h2 class="section-title" style="margin-top:12px;">Accomplishments & Highlights</h2>
+        <p class="section-desc">Industry certificates, pipeline migrations, and technical presentations delivered.</p>
+      </div>
+
+      <div class="accomplishments-grid">
+        <!-- Certificate Card -->
+        <div class="acc-card">
+          <div class="acc-icon">
+            <i data-lucide="shield-check" style="width:28px;height:28px;"></i>
+          </div>
+          <h3 class="acc-title">Google Data Analytics</h3>
+          <p class="acc-desc">
+            Professional Certification covering SQL, R, Tableau, spreadsheet cleaning, and executive presentation design.
+          </p>
+        </div>
+
+        <!-- Migration Card -->
+        <div class="acc-card">
+          <div class="acc-icon" style="background-color:rgba(124,93,250,0.1); color:#7c5dfa;">
+            <i data-lucide="git-merge" style="width:28px;height:28px;"></i>
+          </div>
+          <h3 class="acc-title">Westworld Pipeline Migration</h3>
+          <p class="acc-desc">
+            Successfully migrated legacy temperature metrics, introducing partitioned schemas and robust query optimization.
+          </p>
+        </div>
+
+        <!-- Presentation Card -->
+        <div class="acc-card">
+          <div class="acc-icon" style="background-color:rgba(16,185,129,0.1); color:#10b981;">
+            <i data-lucide="tv" style="width:28px;height:28px;"></i>
+          </div>
+          <h3 class="acc-title">Capstone Presentation</h3>
+          <p class="acc-desc">
+            Authored and shared a 14-slide business analytics study outlining tactical pathways to drive Bellabeat app engagement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form & Simulated Inbox Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">Get in Touch</span>
+        <h2 class="section-title" style="margin-top:12px;">Let's Connect & Collaborate</h2>
+        <p class="section-desc">Drop a message to initiate project collaborations, professional networking, or interview invitations.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact details -->
+        <div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 24px;">Contact Information</h3>
+          <div class="contact-info-list">
+            <!-- Email -->
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <i data-lucide="mail" style="width:20px;height:20px;"></i>
+              </div>
+              <div>
+                <div class="contact-text-title">Email</div>
+                <div class="contact-text-val">nancyrojas@google.com</div>
+              </div>
+            </div>
+
+            <!-- LinkedIn mock -->
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <i data-lucide="linkedin" style="width:20px;height:20px;"></i>
+              </div>
+              <div>
+                <div class="contact-text-title">LinkedIn</div>
+                <div class="contact-text-val">linkedin.com/in/nancyrojas-data</div>
+              </div>
+            </div>
+
+            <!-- Workspace location -->
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <i data-lucide="map-pin" style="width:20px;height:20px;"></i>
+              </div>
+              <div>
+                <div class="contact-text-title">Office Location</div>
+                <div class="contact-text-val">US-CHI-FLMK-5-5B08B (Chicago, IL)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simulated Nancy's Message Logger Panel -->
+          <div class="simulated-inbox">
+            <h4 class="inbox-title">
+              <i data-lucide="inbox" style="width:18px;height:18px;color:var(--primary);"></i>
+              Nancy's Simulated Inbox (Live Memory)
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">
+              Form submissions are saved to state in real-time. Try sending a message!
+            </p>
+            <div class="messages-list" id="messagesList">
+              <div class="msg-item" id="emptyInboxState">
+                <p style="color: var(--text-light); text-align: center; font-style: italic;">No messages logged yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Actionable Contact Form -->
+        <div class="card" style="padding: 32px;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="message-square" style="color:var(--primary);"></i>
+            Built-In Contact Form
+          </h3>
+          <form id="contactForm" onsubmit="submitContactForm(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="contactName">Your Name *</label>
+                <input class="form-input" type="text" id="contactName" placeholder="Alex Morgan" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactEmail">Your Email *</label>
+                <input class="form-input" type="email" id="contactEmail" placeholder="alex@company.com" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contactSubject">Subject *</label>
+              <input class="form-input" type="text" id="contactSubject" placeholder="Interview Request / Project Sync" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contactMsg">Message *</label>
+              <textarea class="form-textarea" id="contactMsg" rows="5" placeholder="Write your proposal or message details..." required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit" style="width: 100%;">
+              <i data-lucide="send" style="width:16px;height:16px;"></i>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add Project Modal Wizard (Nancy can "upload" her project) -->
+  <div class="modal-overlay" id="addProjectModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Upload & Add New Project</h3>
+        <button class="close-btn" onclick="closeAddProjectModal()">
+          <i data-lucide="x" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom: 20px;">
+          Fill out this form to "upload" a new product, dashboard, or comparative script directly onto your portfolio grid.
+        </p>
+        <form id="projectUploadForm" onsubmit="addProjectToGrid(event)">
+          <div class="form-group">
+            <label class="form-label" for="projTitle">Project Title *</label>
+            <input class="form-input" type="text" id="projTitle" placeholder="e.g. Sleep & Activity Correlation" required>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="projCategory">Category *</label>
+              <select class="form-select" id="projCategory" required>
+                <option value="capstone">Capstone Case Study</option>
+                <option value="dashboards">Pipeline & Dashboard</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="projBadges">Security Badge *</label>
+              <select class="form-select" id="projBadges" required>
+                <option value="Public Case Study">Public Case Study</option>
+                <option value="Google Internal">Google Internal</option>
+                <option value="Analytical Sandbox">Analytical Sandbox</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="projDesc">Brief Description *</label>
+            <textarea class="form-textarea" id="projDesc" rows="3" placeholder="Explain the key findings, parameters cleaned, and stakeholder outcomes." required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="projTags">Technologies Used (comma separated) *</label>
+            <input class="form-input" type="text" id="projTags" placeholder="Python, Pandas, SQL, Tableau" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="projLink">Project / Slides Link (Optional)</label>
+            <input class="form-input" type="url" id="projLink" placeholder="https://docs.google.com/presentation/d/... (or slides/docs)">
+          </div>
+          <button class="btn btn-primary" type="submit" style="width: 100%; margin-top: 10px;">
+            <i data-lucide="upload-cloud" style="width:18px;height:18px;"></i>
+            Upload Project to Portfolio
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-brand">
+        <div class="logo-mark" style="width:28px; height:28px; font-size:0.9rem;">NR</div>
+        <span>Nancy Rojas Portfolio</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#case-studies">Projects</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <p>© <span id="currentYear">2025</span> Nancy Rojas. All rights reserved. Data Analytics & Platform Operations.</p>
+    </div>
+  </footer>
+
+  <!-- Slide Data & Core Interactive Scripts -->
+  <script>
+    // System date
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Theme Configs
+    function changeTheme(theme) {
+      if (theme === 'emerald') {
+        document.documentElement.setAttribute('data-theme', 'emerald');
+      } else if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    }
+
+    // Projects Category Filtering
+    function filterProjects(category) {
+      const cards = document.querySelectorAll('#projectsGrid .project-card');
+      const tabs = document.querySelectorAll('.filter-tab');
+      
+      // Update active tab styling
+      tabs.forEach(tab => {
+        if (tab.textContent.toLowerCase().includes(category) || (category === 'all' && tab.textContent.toLowerCase().includes('all'))) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+
+      cards.forEach(card => {
+        if (category === 'all') {
+          card.style.display = 'flex';
+        } else {
+          const cardCat = card.getAttribute('data-category');
+          if (cardCat === category) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // Bellabeat Tab Switcher
+    function switchBBTab(tabName) {
+      // Deactivate all
+      const tabs = document.querySelectorAll('.bb-nav-btn');
+      const panes = document.querySelectorAll('.bb-content-pane');
+      
+      tabs.forEach(tab => {
+        if (tab.textContent.toLowerCase().includes(tabName)) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+
+      panes.forEach(pane => {
+        if (pane.id === `bb-${tabName}`) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
+
+      // Animate charts on tab active
+      if (tabName === 'analyze') {
+        setTimeout(() => {
+          const bars = document.querySelectorAll('#stepsChartContainer .chart-bar');
+          bars.forEach(bar => {
+            const finalWidth = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+              bar.style.width = finalWidth;
+            }, 50);
+          });
+        }, 100);
+      }
+    }
+
+    // Project Modal Wizard actions
+    function openAddProjectModal() {
+      document.getElementById('addProjectModal').classList.add('active');
+    }
+
+    function closeAddProjectModal() {
+      document.getElementById('addProjectModal').classList.remove('active');
+    }
+
+    function addProjectToGrid(event) {
+      event.preventDefault();
+      const title = document.getElementById('projTitle').value;
+      const category = document.getElementById('projCategory').value;
+      const badge = document.getElementById('projBadges').value;
+      const desc = document.getElementById('projDesc').value;
+      const tagsRaw = document.getElementById('projTags').value;
+      const link = document.getElementById('projLink').value || '#';
+
+      const tags = tagsRaw.split(',').map(tag => tag.trim());
+
+      // Create new project card elements
+      const grid = document.getElementById('projectsGrid');
+      const card = document.createElement('div');
+      card.className = 'card project-card';
+      card.setAttribute('data-category', category);
+
+      let tagsHtml = '';
+      tags.forEach(tag => {
+        tagsHtml += `<span class="tech-tag">${tag}</span> `;
+      });
+
+      card.innerHTML = `
+        <div class="project-header">
+          <span class="project-category">${category === 'capstone' ? 'Capstone Case Study' : 'Pipeline & Dashboard'}</span>
+          <span class="badge badge-primary">${badge}</span>
+        </div>
+        <h3 class="project-title">${title}</h3>
+        <p class="project-desc">${desc}</p>
+        <div class="project-meta">
+          ${tagsHtml}
+        </div>
+        <div class="project-footer">
+          <a href="${link}" target="_blank" class="project-link">
+            View Uploaded Assets
+            <i data-lucide="external-link" style="width:16px;height:16px;"></i>
+          </a>
+          <span style="font-size:0.8rem; color:var(--primary); font-weight:600;">Uploaded Live</span>
+        </div>
+      `;
+
+      grid.appendChild(card);
+      lucide.createIcons(); // render icons inside card
+
+      // Clean form & Close Modal
+      document.getElementById('projectUploadForm').reset();
+      closeAddProjectModal();
+
+      // Scroll & Highlight
+      filterProjects('all');
+      card.scrollIntoView({ behavior: 'smooth' });
+      card.style.boxShadow = '0 0 0 3px var(--primary)';
+      setTimeout(() => {
+        card.style.transition = 'box-shadow 1s ease';
+        card.style.boxShadow = 'var(--shadow)';
+      }, 2000);
+    }
+
+    // Contact Form Action & Memory inbox simulation
+    const messages = [];
+    function submitContactForm(event) {
+      event.preventDefault();
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const subject = document.getElementById('contactSubject').value;
+      const msg = document.getElementById('contactMsg').value;
+
+      const messageObj = {
+        name,
+        email,
+        subject,
+        msg,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      messages.unshift(messageObj);
+      renderSimulatedInbox();
+
+      // Show alert inside the form instead of window blocking alert
+      const form = document.getElementById('contactForm');
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '✓ Message Sent Successfully!';
+      btn.style.backgroundColor = '#10b981';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.backgroundColor = 'var(--primary)';
+        btn.disabled = false;
+        form.reset();
+      }, 2500);
+    }
+
+    function renderSimulatedInbox() {
+      const list = document.getElementById('messagesList');
+      const emptyState = document.getElementById('emptyInboxState');
+      
+      if (emptyState) {
+        emptyState.remove();
+      }
+
+      list.innerHTML = '';
+      messages.forEach(msg => {
+        const item = document.createElement('div');
+        item.className = 'msg-item';
+        item.innerHTML = `
+          <div class="msg-header">
+            <span>${escapeHTML(msg.name)} (${escapeHTML(msg.email)})</span>
+            <span style="color: var(--primary); font-size: 0.75rem;">${msg.time}</span>
+          </div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Subj: ${escapeHTML(msg.subject)}</div>
+          <div class="msg-body">${escapeHTML(msg.msg)}</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    // Slide Deck Content Arrays (Nancy's 14 Slide structure recreated in high-fidelity)
+    const slidesData = [
+      {
+        theme: "dark",
+        title: "Consumer Data Analysis",
+        subtitle: "Analyzing Smart Device Trends for Bellabeat",
+        caption: "Google Data Analytics Capstone Case Study",
+        presenter: "Presented by Nancy Rojas"
+      },
+      {
+        theme: "light",
+        title: "Strategic Marketing Insights",
+        subtitle: "Consumer Device Usage Trends",
+        body: "Understanding how smart wearable trends align with modern female consumers' expectations to define key features of Bellabeat products."
+      },
+      {
+        theme: "light",
+        title: "Phase 1: ASK",
+        subtitle: "Defining Objectives",
+        body: "<strong>Stakeholder Objectives:</strong> What are user behavior patterns? How can these parameters direct marketing? What product changes mitigate tracking abandonment?"
+      },
+      {
+        theme: "light",
+        title: "Phase 2: PREPARE",
+        subtitle: "Data Preparation & Validation",
+        body: "<strong>Dataset Analyzed:</strong> FitBit Fitness Tracker Dataset (consisting of minute-level physical stats and tracking indexes across multiple cohorts)."
+      },
+      {
+        theme: "light",
+        title: "Phase 2 - PREPARE (Cont.)",
+        subtitle: "Data Preparation & Integrity/Validation",
+        body: "Verified dataset metrics (dailyActivity, hourlyIntensities, sleepDay, weightLogInfo). Confirmed tracking dates and unique participant representations."
+      },
+      {
+        theme: "light",
+        title: "Phase 3: PROCESS",
+        subtitle: "Cleaning Data for Analysis",
+        body: "Conducted robust hygiene operations using Python/Pandas:<br>• Converted dates to uniform formats<br>• Merged DailyActivity with Sleep summaries<br>• Renamed inconsistent columns"
+      },
+      {
+        theme: "light",
+        title: "Phase 3: PROCESS (Logs)",
+        subtitle: "Tracking Data Operations",
+        body: "Change logs compiled inside Google Sheets and Jupyter script to document exact table joins, column renames, and rows dropped due to corruption."
+      },
+      {
+        theme: "light",
+        title: "Examining Weekly Movement",
+        subtitle: "How do activity levels shift across different days?",
+        body: "<strong>Activity Pattern:</strong> Users hit a clear weekly activity peak on Saturdays. This is immediately followed by a sharp Sunday reset, carrying low physical activities into workdays."
+      },
+      {
+        theme: "light",
+        title: "The Sleep Crisis",
+        subtitle: "How does movement correlate to sleep habits?",
+        body: "<strong>Insight:</strong> 12+ hours of sedentary behaviour strongly correlates to less than 7 hours of sleep. Market daytime alerts as non-intrusive wellness indicators."
+      },
+      {
+        theme: "light",
+        title: "Manual Logging Drop Off",
+        subtitle: "Why is BMI data so sparse?",
+        body: "<strong>Observation:</strong> Unlike passive heart/sleep metrics, tracking BMI requires manual entry. High friction leads to immediate tracking abandonment. (Only 13 of 35 recorded)."
+      },
+      {
+        theme: "light",
+        title: "Phase 6: ACT",
+        subtitle: "Top 3 Actionable Recommendations",
+        body: "1. Prompt sedentary warnings prior to late afternoon slots.<br>2. Build automated/passive smart-scale BMI integrations.<br>3. Introduce community-driven Saturday activity prompts."
+      },
+      {
+        theme: "light",
+        title: "Capstone Reflection",
+        subtitle: "Project Reflection & Key Takeaways",
+        body: "Completing this capstone proved that simple, user-driven data models yield monumental strategy guides for wellness brands. Passive metrics unlock higher retention."
+      },
+      {
+        theme: "dark",
+        title: "Wrap-Up & Discussion",
+        subtitle: "Questions? Feedback?",
+        body: "Thank you for reviewing my analytics capstone presentation!<br>We'd love to hear your feedback and open the floor."
+      },
+      {
+        theme: "light",
+        title: "Resources & Appendix",
+        subtitle: "Hyperlinks & Data Sources",
+        body: "★ FitBit Fitness Data Source (Kaggle public dataset)<br>★ Python Jupyter Notebook via Google Colab<br>★ Nancy Rojas Portfolio"
+      }
+    ];
+
+    let currentSlideIndex = 0;
+
+    function renderSlide() {
+      const slide = slidesData[currentSlideIndex];
+      const canvas = document.getElementById('slideCanvas');
+      const content = document.getElementById('slideContent');
+      const counter = document.getElementById('slideCounter');
+
+      // Update counter
+      counter.textContent = `Slide ${currentSlideIndex + 1} of ${slidesData.length}`;
+
+      // Reset slide classes
+      canvas.className = 'slide-canvas';
+      if (slide.theme === 'dark') {
+        canvas.style.backgroundColor = '#1e293b';
+        canvas.style.color = '#ffffff';
+      } else {
+        canvas.style.backgroundColor = '#ffffff';
+        canvas.style.color = 'var(--text)';
+      }
+
+      // Generate content
+      let html = '';
+      if (currentSlideIndex === 0) {
+        html = `
+          <div style="text-align: center;">
+            <span style="font-size: 0.8rem; font-weight:700; text-transform:uppercase; color:#FE749C; letter-spacing:0.1em; margin-bottom: 8px; display:block;">
+              ${slide.caption}
+            </span>
+            <h1 style="font-size: 2.2rem; font-weight:700; color:#FE749C; line-height:1.2; margin-bottom: 12px;">
+              ${slide.title}
+            </h1>
+            <p style="font-size: 1.1rem; color: #94a3b8; font-weight:300; margin-bottom: 24px;">
+              ${slide.subtitle}
+            </p>
+            <p style="font-size: 0.85rem; color:#FE749C; font-weight:600;">
+              ${slide.presenter}
+            </p>
+          </div>
+        `;
+      } else {
+        const textStyle = slide.theme === 'dark' ? 'color:#94a3b8;' : 'color:var(--text-muted);';
+        const headColor = '#FE749C';
+        html = `
+          <div>
+            <span style="font-size: 0.75rem; font-weight:700; text-transform:uppercase; color:${headColor}; letter-spacing:0.1em; display:block; margin-bottom: 4px;">
+              ${slide.title}
+            </span>
+            <h2 style="font-size: 1.4rem; font-weight:700; margin-bottom: 16px; color: ${slide.theme === 'dark' ? '#ffffff' : 'var(--text)'};">
+              ${slide.subtitle}
+            </h2>
+            <div style="font-size: 0.95rem; line-height:1.6; ${textStyle} border-left: 3px solid ${headColor}; padding-left: 14px;">
+              ${slide.body}
+            </div>
+            <div style="margin-top: 24px; font-size: 0.7rem; color: var(--text-light); text-transform: uppercase; font-weight:600; text-align:right;">
+              Bellabeat Case Study Presentation Companion
+            </div>
+          </div>
+        `;
+      }
+
+      content.innerHTML = html;
+    }
+
+    function navigateSlide(direction) {
+      currentSlideIndex += direction;
+      if (currentSlideIndex < 0) {
+        currentSlideIndex = slidesData.length - 1;
+      } else if (currentSlideIndex >= slidesData.length) {
+        currentSlideIndex = 0;
+      }
+      renderSlide();
+    }
+
+    // Initialize Page features
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderSlide();
+    });
+  </script>
+</body>
+</html>
